@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from dj_audit.models import AuditLog
 
 

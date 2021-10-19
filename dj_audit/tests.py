@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from django.test import RequestFactory, TestCase
 from django.http import HttpResponse
+from django.test import RequestFactory, TestCase
+
 from dj_audit.middleware import AuditMiddleware
 from dj_audit.models import AuditLog
 
