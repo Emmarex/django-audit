@@ -6,9 +6,10 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-pytest = "*"
+coverage = "*"
 pre-commit = "*"
 autopep8 = "*"
+mock = "*"
 
 [requires]
 python_version = "3.8"
