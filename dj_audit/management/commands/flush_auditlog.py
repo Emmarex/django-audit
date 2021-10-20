@@ -14,6 +14,6 @@ class Command(BaseCommand):
         """
         print("Starting clean up of dj-audit AuditLog table")
 
-        count, _ = AuditLog.objects.delete()
+        count, _ = AuditLog.objects.all().delete()
 
         print(f'Deleted {count} records from dj-audit AuditLog table')
