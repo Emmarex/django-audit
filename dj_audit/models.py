@@ -5,6 +5,7 @@ from django.db import models
 class AuditLog(models.Model):
     """ Audit log """
 
+    id = models.BigAutoField(primary_key=True, verbose_name='ID')
     user_agent = models.CharField(max_length=255,)
     ip_address = models.GenericIPAddressField(
         verbose_name="IP Address", null=True,)
