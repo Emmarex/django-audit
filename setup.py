@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='dj_audit',
-    version='0.0.2',
+    version='0.0.3',
     author="Tairu Oluwafemi Emmanuel",
     author_email="developer.emmarex@gmail.com",
-    description="",
+    description="Django Audit is a simple Django app that tracks and logs requests to your application.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/Emmarex/django-audit",
@@ -28,6 +28,7 @@ setuptools.setup(
         # "Development Status :: 6 - Mature",
         "Intended Audience :: Developers",
         "Framework :: Django",
+        "Framework :: Django :: 2.2",
         "Framework :: Django :: 3.0",
         "Framework :: Django :: 3.1",
         "Framework :: Django :: 3.2"
