@@ -18,7 +18,7 @@ class AuditLog(models.Model):
         verbose_name="Content Type", max_length=200,)
     query_string = models.TextField(
         verbose_name="Query String")
-    post_data = models.JSONField(
+    post_data = JSONField(
         verbose_name="Post Data", null=True, blank=True,
     )
     http_method = models.CharField(

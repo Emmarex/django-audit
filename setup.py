@@ -1,11 +1,31 @@
-import setuptools
+import os
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+
+def get_package_data(package):
+    """
+    Return all files under the root package, that are not in a
+    package themselves.
+    """
+    walk = [
+        (dirpath.replace(package + os.sep, "", 1), filenames)
+        for dirpath, dirnames, filenames in os.walk(package)
+        if not os.path.exists(os.path.join(dirpath, "__init__.py"))
+    ]
+
+    filepaths = []
+    for base, filenames in walk:
+        filepaths.extend([os.path.join(base, filename)
+                         for filename in filenames])
+    return {package: filepaths}
+
+
+setup(
     name='dj_audit',
-    version='0.0.5',
+    version='0.0.8',
     author="Tairu Oluwafemi Emmanuel",
     author_email="developer.emmarex@gmail.com",
     description="Django Audit is a simple Django app that tracks and logs requests to your application.",
@@ -14,7 +34,9 @@ setuptools.setup(
     url="https://github.com/Emmarex/django-audit",
     download_url="",
     keywords=['Django Audit', 'Audit', 'audit trail'],
-    packages=setuptools.find_packages(),
+    include_package_data=True,
+    packages=find_packages(),
+    package_data=get_package_data("dj_audit"),
     python_requires='~=3.6',
     install_requires=["Django", "psycopg2-binary"],
     classifiers=[
