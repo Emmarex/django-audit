@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 
 
 class AuditLog(models.Model):
@@ -9,12 +10,17 @@ class AuditLog(models.Model):
     user_agent = models.CharField(max_length=255,)
     ip_address = models.GenericIPAddressField(
         verbose_name="IP Address", null=True,)
+    host_name = models.CharField(
+        verbose_name="Host Name", max_length=200, default='')
     user = models.ForeignKey(
         to=get_user_model(), null=True, on_delete=models.CASCADE)
     content_type = models.CharField(
         verbose_name="Content Type", max_length=200,)
     query_string = models.TextField(
         verbose_name="Query String")
+    post_data = models.JSONField(
+        verbose_name="Post Data", null=True, blank=True,
+    )
     http_method = models.CharField(
         verbose_name="HTTP Method", max_length=20,)
     http_referer = models.CharField(
@@ -23,6 +29,7 @@ class AuditLog(models.Model):
     request_data = models.TextField(null=True)
     response_status_code = models.IntegerField(null=True)
     response_reason_phrase = models.TextField()
+    response_body = models.TextField(default='')
     attempt_time = models.DateTimeField(auto_now_add=True,)
 
     class Meta:
