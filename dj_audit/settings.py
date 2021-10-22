@@ -7,3 +7,6 @@ AUDIT_LOG_TEMPLATE = getattr(
 
 REQUEST_STATUS_TEMPLATE = getattr(
     global_settings, 'REQUEST_STATUS_TEMPLATE', 'dj_audit/request_status_page.html')
+
+API_BASE_URL = getattr(
+    global_settings, 'API_BASE_URL', '')
