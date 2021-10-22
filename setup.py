@@ -16,7 +16,7 @@ setuptools.setup(
     keywords=['Django Audit', 'Audit', 'audit trail'],
     packages=setuptools.find_packages(),
     python_requires='~=3.6',
-    install_requires=["Django"],
+    install_requires=["Django", "psycopg2-binary"],
     classifiers=[
         "Natural Language :: English",
         "Programming Language :: Python :: 3.6",
