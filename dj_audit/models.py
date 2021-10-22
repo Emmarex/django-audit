@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.db import models
 from django.contrib.postgres.fields import JSONField
+from django.db import models
 
 
 class AuditLog(models.Model):

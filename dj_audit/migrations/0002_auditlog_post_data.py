@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='auditlog',
             name='post_data',
-            field=models.JSONField(blank=True, null=True, verbose_name='Post Data'),
+            field=models.JSONField(blank=True, null=True,
+                                   verbose_name='Post Data'),
         ),
     ]

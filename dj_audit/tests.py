@@ -64,7 +64,8 @@ class TestAuditMiddleware(TestCase):
 
     def test_post_request_processing(self):
         data = {'name': "Habeeb"}
-        request = self.factory.post('/test/', data=data, content_type='application/json')
+        request = self.factory.post(
+            '/test/', data=data, content_type='application/json')
 
         response = AuditMiddleware(
             get_response_empty).process_response(request)

@@ -13,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='auditlog',
             name='host_name',
-            field=models.CharField(default='', max_length=200, verbose_name='HostName'),
+            field=models.CharField(
+                default='', max_length=200, verbose_name='HostName'),
         ),
     ]

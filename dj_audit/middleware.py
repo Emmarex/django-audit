@@ -3,6 +3,7 @@ from dj_audit.models import AuditLog
 
 file_extensions = ['.svg', '.js', '.css', '.png', '.jpg', '.ico', ]
 
+
 class AuditMiddleware:
 
     def __init__(self, get_response) -> None:
@@ -25,7 +26,6 @@ class AuditMiddleware:
         for ext in file_extensions:
             if ext in request.path_info:
                 return response
-
 
         if settings.DISABLE_AUDIT_LOG:
             return response
