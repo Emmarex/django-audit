@@ -39,16 +39,7 @@ Request Status
         </thead>
         <tbody>
             {% for api in api_break_down %}
-            <tr
-                class="
-                {% if audit.response_status_code >= 200 and audit.response_status_code < 400 %}
-                table-success
-                {% elif audit.response_status_code >= 400 and audit.response_status_code < 500 %}
-                table-warning
-                {% elif audit.response_status_code >= 500 %}
-                table-danger
-                {% endif %}"
-            >
+            <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{ api.endpoint }}</td>
                 <td>{{ api.no_success }}</td>
