@@ -58,9 +58,6 @@ class TestAuditMiddleware(TestCase):
         audit_logs_count = AuditLog.objects.all().count()
         self.assertEqual(audit_logs_count, 2)
 
-        last_log: AuditLog = AuditLog.objects.first()
-        self.assertIsNotNone(last_log)
-
     def test_post_request_processing(self):
         data = {'name': "Habeeb"}
         request = self.factory.post(
@@ -82,9 +79,6 @@ class TestAuditMiddleware(TestCase):
 
         audit_logs_count = AuditLog.objects.all().count()
         self.assertEqual(audit_logs_count, 2)
-
-        last_log: AuditLog = AuditLog.objects.first()
-        self.assertIsNotNone(last_log)
 
 
 class TestAuditView(TestCase):
