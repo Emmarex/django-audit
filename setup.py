@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='dj_audit',
-    version='0.0.4',
+    version='0.0.5',
     author="Tairu Oluwafemi Emmanuel",
     author_email="developer.emmarex@gmail.com",
     description="Django Audit is a simple Django app that tracks and logs requests to your application.",
