@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import audit_log_page, request_status_page
 
 urlpatterns = [
