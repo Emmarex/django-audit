@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 
+from .views import TestView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("dj-audit/", include('dj_audit.urls'))
