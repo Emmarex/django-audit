@@ -10,3 +10,12 @@ def audit_log_page(request):
     context = {
     }
     return render(request, "dj_audit/audit_list_page.html", context)
+
+
+@staff_member_required
+def request_status_page(request):
+    """ List audit logs """
+
+    context = {
+    }
+    return render(request, "dj_audit/request_status_page.html", context)
