@@ -1,8 +1,15 @@
 from django.contrib.admin.views.decorators import staff_member_required
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from dj_audit.models import AuditLog
 from dj_audit.settings import AUDIT_LOG_TEMPLATE, REQUEST_STATUS_TEMPLATE
+
+
+@staff_member_required
+def index_page(request):
+    return HttpResponseRedirect(reverse('dj_audit_audit_log_page'))
 
 
 @staff_member_required
