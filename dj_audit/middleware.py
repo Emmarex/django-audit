@@ -1,12 +1,12 @@
 from dj_audit import settings
 from dj_audit.models import AuditLog
 
+file_extensions = ['.svg', '.js', '.css', '.png', '.jpg', '.ico', ]
 
 class AuditMiddleware:
 
     def __init__(self, get_response) -> None:
         self.get_response = get_response
-        self.file_extensions = ['.svg', '.js', '.css', '.png', '.jpg', '.ico', ]
 
     def __call__(self, request, *args, **kwargs):
         response = self.process_response(request)
@@ -22,7 +22,7 @@ class AuditMiddleware:
         if media_url and media_url in request.path_info:
             return response
 
-        for ext in self.file_extensions:
+        for ext in file_extensions:
             if ext in request.path_info:
                 return response
 
@@ -51,12 +51,6 @@ class AuditMiddleware:
                 'response_reason_phrase': response.reason_phrase,
                 'response_body': response.content.decode('utf-8'),
             }
-
-            try:
-                log_data.update({'request_data': request.body.decode('utf-8')})
-            except Exception as e:
-                print(e)
-                pass
 
             AuditLog.objects.create(**log_data)
 
