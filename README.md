@@ -34,6 +34,15 @@ MIDDLEWARE = [
 ]
 ```
 
+if you want access to the dj-audit dashboard, then add the following to your ```urls.py```
+
+```python
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("dj-audit/", include('dj_audit.urls'))
+]
+```
+
 4. Run migrate
 
 ```bash
