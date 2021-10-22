@@ -1,0 +1,99 @@
+{% extends 'dj_audit/base.html' %}
+
+{% block title %}
+Audit Logs
+{% endblock %}
+
+{% block additional_styles %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css"
+    integrity="sha512-8IKwXYhvXkrNGaU06NnGsiDqJign94kk5+AAdTu4wR3hkuU5x2Weo1evN3xYSpnRtIJNLwAT2/R4ITAAv0IhdA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block page_content %}
+<div class="row mt-5">
+    <div class="col-md-2 col-lg-2 col-sm-12">
+        <div class="form-group">
+            <label for="start_date">Select user</label>
+            <select class="form-control selectpicker" name="user_name" id="user_select">
+                <option value=""></option>
+                {% for user in users %}
+                <option
+                    value="{{ user.username }}"
+                    {% if request.GET.user_name == user.username %}selected="selected"{% endif %}
+                >
+                    {% firstof user.full_name user.username %}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+<div class="page_table mt-1 mb-5 ">
+    <table id="audit_table" class="table table-bordered">
+        <!-- table-striped -->
+        <thead>
+            <tr>
+                <th>S/N</th>
+                <th>Username</th>
+                <th>IP Address</th>
+                <th>User Agent</th>
+                <th>Content Type</th>
+                <th>Query String</th>
+                <th>HTTP Method</th>
+                <th>URL</th>
+                <th>Response Status</th>
+                <th>Attempt Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for audit in audit_logs %}
+            <tr class="
+                {% if audit.response_status_code >= 200 and audit.response_status_code < 400 %}
+                table-success
+                {% elif audit.response_status_code >= 400 and audit.response_status_code < 500 %}
+                table-warning
+                {% elif audit.response_status_code >= 500 %}
+                table-danger
+                {% endif %}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ audit.user }}</td>
+                <td>{{ audit.ip_address }}</td>
+                <td>{{ audit.user_agent }}</td>
+                <td>{{ audit.content_type }}</td>
+                <td>{{ audit.query_string }}</td>
+                <td>{{ audit.http_method }}</td>
+                <td>{{ audit.path_info }}</td>
+                <td>{{ audit.response_status_code }}</td>
+                <td>{{ audit.attempt_time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"
+    integrity="sha512-/xmIG37mK4F8x9kBvSoZjbkcQ4/y2AbV5wv+lr/xYhdZRjXc32EuRasTpg7yIdt0STl6xyIq+rwb4nbUmrU/1g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function () {
+        $('#audit_table').DataTable({
+            "pageLength": 50,
+            "lengthChange": false
+        });
+        $('.selectpicker').selectpicker();
+        $(".bootstrap-select").click(function () {
+            $(this).addClass("open");
+        });
+        $('#user_select').on('change', function(e){
+            window.location.href = `?user_name=${$('#user_select').val()}`
+        });
+    });
+</script>
+{% endblock %}

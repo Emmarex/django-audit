@@ -1,0 +1,70 @@
+{% extends 'dj_audit/base.html' %}
+
+{% block title %}
+Request Status
+{% endblock %}
+
+{% block additional_styles %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block page_content %}
+<div class="card-group">
+  <div class="card  text-white bg-primary mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ total_success }} Successful </h5>
+      <!--      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>-->
+    </div>
+  </div>
+  <div class="card  text-white bg-dark mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ total_not_found }} Not Found </h5>
+      <!--      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
+    </div>
+  </div>
+  <div class="card text-white bg-danger mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ total_failed }} Failed </h5>
+      <!--      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>-->
+    </div>
+  </div>
+</div>
+<div class="page_table mt-5 mb-5">
+  <table id="request_status_table" class="table table-bordered">
+    <!-- table-striped -->
+    <thead>
+      <tr>
+        <th>S/N</th>
+        <th>Api Endpoint</th>
+        <th>No of Successful Request</th>
+        <th>No of Failed Request</th>
+        <th>No of Not Found Request</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for api in api_break_down %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ api.path_info }}</td>
+        <td>{{ api.no_success }}</td>
+        <td>{{ api.no_failed }}</td>
+        <td>{{ api.no_not_found }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block additional_scripts %}
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#request_status_table').DataTable({
+      "pageLength": 50,
+      "lengthChange": false
+    });
+  });
+</script>
+{% endblock %}

@@ -60,7 +60,6 @@ class TestAuditMiddleware(TestCase):
 
         last_log: AuditLog = AuditLog.objects.first()
         self.assertIsNotNone(last_log)
-        print(last_log.query_string)
 
     def test_post_request_processing(self):
         data = {'name': "Habeeb"}
@@ -86,4 +85,9 @@ class TestAuditMiddleware(TestCase):
 
         last_log: AuditLog = AuditLog.objects.first()
         self.assertIsNotNone(last_log)
-        print(last_log.post_data)
+
+
+class TestAuditView(TestCase):
+
+    def setUp(self) -> None:
+        return super().setUp()
