@@ -48,7 +48,7 @@ def request_status_page(request):
 
     api_break_down = audit_log.values('path_info').\
         annotate(no_success=no_success).annotate(
-            no_failed=no_failed).annotate(no_not_found=no_not_found)
+            no_failed=no_failed).annotate(no_not_found=no_not_found).order_by('path_info')
 
     context = {
         'total_success': total_success,
