@@ -15,3 +15,4 @@ class AuditLogAdmin(ModelAdmin):
         ('attempt_time', DateFieldListFilter)
     )
     search_fields = ('user__username', 'ip_address')
+    autocomplete_fields = ('user', )
