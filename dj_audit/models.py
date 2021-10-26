@@ -1,6 +1,17 @@
 from django.contrib.auth import get_user_model
-from django.contrib.postgres.fields import JSONField
 from django.db import models
+from jsonfield import JSONField
+
+LOG_STATUS_CHOICES = (
+    ('success', 'success'),
+    ('failed', 'failed'),
+    ('warning', 'warning'),
+)
+
+RESPONSE_TYPE_CHOICES = (
+    ('http', 'http'),
+    ('rest', 'rest'),
+)
 
 
 class AuditLog(models.Model):
@@ -29,8 +40,11 @@ class AuditLog(models.Model):
     request_data = models.TextField(null=True)
     response_status_code = models.IntegerField(null=True)
     response_reason_phrase = models.TextField()
-    response_body = models.TextField(default='')
-    attempt_time = models.DateTimeField(auto_now_add=True,)
+    response_body = models.JSONField(default={})
+    attempt_time = models.DateTimeField(auto_now_add=True,) #this should serve as request time
+    response_time = models.DateTimeField(null=True, blank=True) #this should serve as the time a response was sent back to the client if any
+    log_status = models.CharField(max_length=20, choices=LOG_STATUS_CHOICES, default='success')
+    response_type = models.CharField(max_length=20, choices=RESPONSE_TYPE_CHOICES, default='http')
 
     class Meta:
         ordering = ["-attempt_time"]
