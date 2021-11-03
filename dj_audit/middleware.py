@@ -1,4 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
+from django.utils import timezone
 from django.http import HttpResponse
 
 from dj_audit import settings
@@ -41,8 +42,13 @@ class AuditMiddleware:
                     "Improper configure of AUDIT_LOG_DJ_EXTRA_CONDITIONS setting. The 'flag' key must be set correctly ")
 
     def __call__(self, request, *args, **kwargs):
+        self.process_request(request)
         response = self.process_response(request)
         return response
+
+    def process_request(self, request):
+        self.request_time = timezone.now()
+        return None
 
     def process_response(self, request, response=None):
         response = self.get_response(request)
@@ -126,7 +132,8 @@ class AuditMiddleware:
                 'response_type': response_type,
                 'log_status': log_type,
                 'response_reason_phrase': response.reason_phrase,
-                'response_body': response_body
+                'response_body': response_body,
+                'attempt_time': self.request_time,
             }
 
             AuditLog.objects.create(**log_data)
