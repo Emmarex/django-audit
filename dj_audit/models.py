@@ -35,14 +35,14 @@ class AuditLog(models.Model):
     http_method = models.CharField(
         verbose_name="HTTP Method", max_length=20,)
     http_referer = models.CharField(
-        verbose_name="HTTP Method", max_length=500,)
+        verbose_name="HTTP Referer", max_length=500,)
     path_info = models.CharField(verbose_name="Path", max_length=255,)
     request_data = models.TextField(null=True)
     response_status_code = models.IntegerField(null=True)
     response_reason_phrase = models.TextField()
     response_body = models.JSONField(default={})
-    attempt_time = models.DateTimeField(auto_now_add=True,) #this should serve as request time
-    response_time = models.DateTimeField(null=True, blank=True) #this should serve as the time a response was sent back to the client if any
+    attempt_time = models.DateTimeField() #this should serve as request time
+    response_time = models.DateTimeField(auto_now_add=True, ) #this should serve as the time a response was sent back to the client if any
     log_status = models.CharField(max_length=20, choices=LOG_STATUS_CHOICES, default='success')
     response_type = models.CharField(max_length=20, choices=RESPONSE_TYPE_CHOICES, default='http')
 
@@ -52,3 +52,9 @@ class AuditLog(models.Model):
     def __str__(self) -> str:
         """ unicode value for this model """
         return f'{self.user}, {self.attempt_time}'
+
+    @property
+    def response_duration(self):
+        diff = self.response_time - self.attempt_time
+        minute, second = divmod(diff.seconds, 60)
+        return f"{minute}m {second}s {diff.microseconds}ms"
