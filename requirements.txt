@@ -1,4 +1,7 @@
 autopep8==1.5.7
+Django==3.2.8
 pre-commit==2.15.0
-coverage==6.0.2
-jsonfield==3.1.0
+psycopg2-binary==2.9.1
+pytest==6.2.5
+pytest-cov==3.0.0
+requests==2.26.0

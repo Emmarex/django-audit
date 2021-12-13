@@ -60,7 +60,6 @@ python manage.py flush_auditlog
 ## Customizing dj-audit
 You have a couple options available to you to customize ```dj-audit``` a bit. These should be defined in your ```settings.py``` file.
 
-- ```DISABLE_AUDIT_LOG```: bool: Disable or Enable dj_audit
 - ```AUDIT_LOG_TEMPLATE```: str: If set, the template here will be render when the user visits the audit log page (i.e /dj-audit/audit-logs/)
 - ```REQUEST_STATUS_TEMPLATE```: str: If set, the template here will be render when the user visits the request status page (i.e /dj-audit/request-status/)
 - ```API_BASE_URL```: str: Base url for API requests if any
