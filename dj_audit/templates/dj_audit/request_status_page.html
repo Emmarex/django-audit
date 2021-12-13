@@ -18,7 +18,7 @@ Request Status
   </div>
   <div class="card  text-white bg-dark mb-3">
     <div class="card-body">
-      <h5 class="card-title">{{ total_not_found }} Not Found </h5>
+      <h5 class="card-title">{{ total_warning }} Warning </h5>
       <!--      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>-->
     </div>
   </div>
@@ -36,9 +36,9 @@ Request Status
       <tr>
         <th>S/N</th>
         <th>Api Endpoint</th>
-        <th>No of Successful Request</th>
-        <th>No of Failed Request</th>
-        <th>No of Not Found Request</th>
+        <th>Successful Requests</th>
+        <th>Requests with warnings</th>
+        <th>Failed Requests</th>
       </tr>
     </thead>
     <tbody>
@@ -47,8 +47,8 @@ Request Status
         <td>{{ forloop.counter }}</td>
         <td>{{ api.path_info }}</td>
         <td>{{ api.no_success }}</td>
+        <td>{{ api.no_warning }}</td>
         <td>{{ api.no_failed }}</td>
-        <td>{{ api.no_not_found }}</td>
       </tr>
       {% endfor %}
     </tbody>
@@ -91,7 +91,7 @@ Request Status
 <script>
   $(document).ready(function () {
     $('#request_status_table').DataTable({
-      "pageLength": 50,
+      "pageLength": 100,
       "lengthChange": false
     });
   });
