@@ -25,9 +25,9 @@ def get_package_data(package):
 
 setup(
     name='dj_audit',
-    version='0.0.9',
+    version='0.1.0',
     author="Tairu Oluwafemi Emmanuel",
-    author_email="developer.emmarex@gmail.com",
+    author_email="tairuoluwafemi09@gmail.com",
     description="Django Audit is a simple Django app that tracks and logs requests to your application.",
     long_description=long_description,
     long_description_content_type="text/markdown",
