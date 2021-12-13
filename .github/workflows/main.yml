@@ -4,17 +4,14 @@ name: CodeCov
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    env:
-      OS: ubuntu-latest
-      PYTHON: '3.8'
-    steps:
+
     - name: Checkout
       uses: actions/checkout@v2
       with:

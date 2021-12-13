@@ -4,6 +4,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/Emmarex/django-audit)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/dj_audit)
 [![codecov](https://codecov.io/gh/Emmarex/django-audit/branch/main/graph/badge.svg?token=U964OH44O9)](https://codecov.io/gh/Emmarex/django-audit)
+[![CodeCov](https://github.com/Emmarex/django-audit/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Emmarex/django-audit/actions/workflows/main.yml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 Django Audit is a simple Django app that tracks and logs requests to your application.
