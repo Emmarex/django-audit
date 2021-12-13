@@ -15,16 +15,17 @@ jobs:
       OS: ubuntu-latest
       PYTHON: '3.8'
     steps:
-    - uses: checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
       with:
         fetch-depth: '2'
 
-    - name: Setup Python
-      uses: actions/setup-python@master
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.8.12
 
-    - name: Generate Report
+    - name: Install dependencies and Generate Report
       run: |
         pip install -r requirements
         make coverage_test
