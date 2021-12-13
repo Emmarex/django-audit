@@ -54,6 +54,35 @@ Request Status
     </tbody>
   </table>
 </div>
+
+<!-- Pagination begins here -->
+{% if api_break_down.has_other_pages %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if api_break_down.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ api_break_down.previous_page_number }}" tabindex="-1">Previous</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+      </li>
+    {% endif %}
+    <li class="page-item"><a class="page-link">Page {{ api_break_down.number }} of {{ api_break_down.paginator.num_pages }}</a></li>
+    {% if api_break_down.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ api_break_down.next_page_number }}">Next</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-disabled="true">Next</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+<!-- End of pagination -->
+
 {% endblock %}
 
 {% block additional_scripts %}
