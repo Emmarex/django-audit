@@ -1,6 +1,12 @@
+from django import __version__
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models import JSONField
+
+if __version__ > '2.2':
+    from django.db.models import JSONField
+else:
+    from django.contrib.postgres.fields import JSONField
+
 
 LOG_STATUS_CHOICES = (
     ('success', 'success'),
@@ -39,7 +45,7 @@ class AuditLog(models.Model):
     request_data = models.TextField(null=True)
     response_status_code = models.IntegerField(null=True)
     response_reason_phrase = models.TextField()
-    response_body = models.JSONField(default=dict)
+    response_body = JSONField(default=dict)
     attempt_time = models.DateTimeField()  # this should serve as request time
     # this should serve as the time a response was sent back to the client if any
     response_time = models.DateTimeField(auto_now_add=True, )
