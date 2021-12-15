@@ -12,7 +12,7 @@ def get_package_data(package):
     """
     walk = [
         (dirpath.replace(package + os.sep, "", 1), filenames)
-        for dirpath, dirnames, filenames in os.walk(package)
+        for dirpath, _, filenames in os.walk(package)
         if not os.path.exists(os.path.join(dirpath, "__init__.py"))
     ]
 
@@ -46,13 +46,13 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: Apache Software License",
-        "Development Status :: 4 - Beta",
-        # "Development Status :: 6 - Mature",
+        "Development Status :: 6 - Mature",
         "Intended Audience :: Developers",
         "Framework :: Django",
         "Framework :: Django :: 2.2",
         "Framework :: Django :: 3.0",
         "Framework :: Django :: 3.1",
-        "Framework :: Django :: 3.2"
+        "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0"
     ],
 )
