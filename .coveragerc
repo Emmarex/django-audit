@@ -1,2 +1,3 @@
 [run]
+source = ./dj_audit
 omit = *_settings.py, dj_audit/*migrations/*, *test.py, *__init__.py, *tests.py, *urls.py
