@@ -116,7 +116,10 @@ class AuditMiddleware:
             if response_type == 'http':
                 response_body = ''
             else:
-                response_body = response.content.decode('utf-8')
+                if response.streaming:
+                    response_body = "Streamed Content"
+                else:
+                    response_body = response.content.decode('utf-8')
             log_data = {
                 'user_agent': request.META.get('HTTP_USER_AGENT', ''),
                 'ip_address': request.META.get('REMOTE_ADDR', ''),
