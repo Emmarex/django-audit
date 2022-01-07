@@ -120,6 +120,9 @@ class AuditMiddleware:
                     response_body = "Streamed Content"
                 else:
                     response_body = response.content.decode('utf-8')
+
+            exception = getattr(self, 'exception', None)
+
             log_data = {
                 'user_agent': request.META.get('HTTP_USER_AGENT', ''),
                 'ip_address': request.META.get('REMOTE_ADDR', ''),
@@ -135,10 +138,13 @@ class AuditMiddleware:
                 'response_type': response_type,
                 'log_status': log_type,
                 'response_reason_phrase': response.reason_phrase,
-                'response_body': response_body,
+                'response_body': response_body if exception is None else exception,
                 'attempt_time': self.request_time
             }
 
             AuditLog.objects.create(**log_data)
 
         return response
+
+    def process_exception(self, request, exception):
+        self.exception = str(exception)
