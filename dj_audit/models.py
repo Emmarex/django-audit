@@ -63,6 +63,8 @@ class AuditLog(models.Model):
 
     @property
     def response_duration(self):
-        diff = self.response_time - self.attempt_time
-        minute, second = divmod(diff.seconds, 60)
-        return f"{minute}m {second}s {diff.microseconds}ms"
+        if self.response_time:
+            diff = self.response_time - self.attempt_time
+            minute, second = divmod(diff.seconds, 60)
+            return f"{minute}m {second}s {diff.microseconds}ms"
+        return f"N/A"
