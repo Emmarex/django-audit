@@ -2,7 +2,7 @@ from django import __version__
 from django.contrib.auth import get_user_model
 from django.db import models
 
-if __version__ > '2.2':
+if __version__ >= '3.1':
     from django.db.models import JSONField
 else:
     from django.contrib.postgres.fields import JSONField
