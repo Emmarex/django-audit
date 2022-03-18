@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 
-if __version__ > '2.2':
+if __version__ >= '3.1':
     from django.db.models import JSONField
 else:
     from django.contrib.postgres.fields import JSONField
