@@ -51,6 +51,7 @@ class AuditMiddleware:
         return None
 
     def process_response(self, request, response=None):
+        response_time = timezone.now()
         response = self.get_response(request)
         static_url = getattr(settings, 'STATIC_URL', None)
         if static_url and static_url in request.path_info:
@@ -136,7 +137,8 @@ class AuditMiddleware:
                 'log_status': log_type,
                 'response_reason_phrase': response.reason_phrase,
                 'response_body': response_body,
-                'attempt_time': self.request_time
+                'attempt_time': self.request_time,
+                "response_time": response_time
             }
 
             AuditLog.objects.create(**log_data)
