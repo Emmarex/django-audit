@@ -4,7 +4,7 @@ from django.utils import timezone
 from dj_audit import settings
 from dj_audit.models import AuditLog
 
-successful_status = [200, 201, 302, 301]
+successful_status = {200, 201, 302, 301}
 
 
 class AuditMiddleware:
