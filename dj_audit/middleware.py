@@ -141,7 +141,7 @@ class AuditMiddleware:
                 'response_type': response_type,
                 'log_status': log_type,
                 'response_reason_phrase': response.reason_phrase,
-                'response_body': response_body if exception is None else self.exception,
+                'response_body': response_body if exception is None else self.traceback,
                 'attempt_time': self.request_time,
                 'response_time': response_time
             }
