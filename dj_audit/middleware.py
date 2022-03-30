@@ -152,4 +152,4 @@ class AuditMiddleware:
 
     def process_exception(self, request, exception):
         self.exception = str(exception)
-        self.traceback = traceback.print_exc()
+        self.traceback = traceback.format_exc()
