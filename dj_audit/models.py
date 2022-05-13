@@ -24,7 +24,7 @@ class AuditLog(models.Model):
     """ Audit log """
 
     id = models.BigAutoField(primary_key=True, verbose_name='ID')
-    user_agent = models.CharField(max_length=255,)
+    user_agent = models.TextField()
     ip_address = models.GenericIPAddressField(
         verbose_name="IP Address", null=True,)
     host_name = models.CharField(
