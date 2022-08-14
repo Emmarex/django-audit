@@ -126,6 +126,11 @@ class AuditMiddleware:
 
             exception = getattr(self, 'exception', None)
 
+            data = request.POST.dict().copy()
+
+            if 'password' in data:
+                _ = data.pop('password')
+
             log_data = {
                 'user_agent': request.META.get('HTTP_USER_AGENT', ''),
                 'ip_address': request.META.get('REMOTE_ADDR', ''),
@@ -136,7 +141,7 @@ class AuditMiddleware:
                 'http_method': request.method,
                 'http_referer': request.META.get('HTTP_REFERER', ''),
                 'path_info': request.path_info,
-                'post_data': request.POST.dict(),
+                'post_data': data,
                 'response_status_code': response.status_code,
                 'response_type': response_type,
                 'log_status': log_type,
