@@ -29,3 +29,8 @@ ADMIN_LIST_FILTER = getattr(
 ADMIN_SEARCH_FIELDS = getattr(
     global_settings, 'ADMIN_SEARCH_FIELDS',  ('user__username', 'ip_address')
 )
+
+# this may be sensitive data key such as password, csrf token etc. Note: password and csrf token don't necessarily need to be
+AUDIT_LOG_DJ_REQUEST_DATA_EXCLUSION_KEYS = getattr(
+    global_settings, 'AUDIT_LOG_REQUEST_DATA_EXCLUSION_KEYS',  []
+)
