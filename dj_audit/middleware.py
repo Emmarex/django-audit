@@ -118,7 +118,7 @@ class AuditMiddleware:
                     else:
                         log_type = 'failed'
             if response_type == 'http':
-                response_body = ''
+                response_body = 'html content'
             else:
                 if response.streaming:
                     response_body = "Streamed Content"
