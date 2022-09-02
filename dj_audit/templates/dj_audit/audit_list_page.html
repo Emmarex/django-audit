@@ -22,8 +22,7 @@ Audit Logs
                 {% for user in users %}
                 <option
                     value="{{ user.username }}"
-                    {% if request.GET.user_name == user.username %}selected="selected"{% endif %}
-                >
+                    {% if request.GET.user_name == user.username %}selected="selected"{% endif %}>
                     {% firstof user.full_name user.username %}
                 </option>
                 {% endfor %}

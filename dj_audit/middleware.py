@@ -1,4 +1,5 @@
 import traceback
+import json
 
 from django.core.exceptions import ImproperlyConfigured
 from django.utils import timezone
@@ -117,7 +118,7 @@ class AuditMiddleware:
                     else:
                         log_type = 'failed'
             if response_type == 'http':
-                response_body = ''
+                response_body = 'html content'
             else:
                 if response.streaming:
                     response_body = "Streamed Content"
@@ -125,6 +126,21 @@ class AuditMiddleware:
                     response_body = response.content.decode('utf-8')
 
             exception = getattr(self, 'exception', None)
+
+            data = request.POST.dict()
+
+            if not data:
+                try:
+                    data = json.loads(request.body.decode("utf-8"))
+                except:
+                    data = {}
+
+            # password, csrf token are intentionally removed from list
+            keys = getattr(settings, 'AUDIT_LOG_DJ_REQUEST_DATA_EXCLUSION_KEYS', []) + ['password', 'csrfmiddlewaretoken']
+
+            for key in keys:
+                if key in data:
+                    _ = data.pop(key)
 
             log_data = {
                 'user_agent': request.META.get('HTTP_USER_AGENT', ''),
@@ -136,12 +152,12 @@ class AuditMiddleware:
                 'http_method': request.method,
                 'http_referer': request.META.get('HTTP_REFERER', ''),
                 'path_info': request.path_info,
-                'post_data': request.POST.dict(),
+                'post_data': data,
                 'response_status_code': response.status_code,
                 'response_type': response_type,
                 'log_status': log_type,
                 'response_reason_phrase': response.reason_phrase,
-                'response_body': response_body if exception is None else self.traceback,
+                'response_body': response_body if response_body else self.traceback if exception else None,
                 'attempt_time': self.request_time,
                 'response_time': response_time
             }
