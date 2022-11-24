@@ -1,7 +1,7 @@
 autopep8==1.5.7
 Django==3.2.15
 pre-commit==2.15.0
-psycopg2-binary==2.9.1
+psycopg2-binary==2.9.5
 pytest==6.2.5
 pytest-cov==3.0.0
 requests==2.26.0

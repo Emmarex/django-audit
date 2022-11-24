@@ -117,13 +117,11 @@ class AuditMiddleware:
                         log_type = 'warning'
                     else:
                         log_type = 'failed'
-            if response_type == 'http':
-                response_body = 'html content'
-            else:
-                if response.streaming:
-                    response_body = "Streamed Content"
-                else:
-                    response_body = response.content.decode('utf-8')
+
+            response_body = response.content.decode('utf-8')
+
+            if response_type == 'http' or response.streaming:
+                response_body = {}
 
             exception = getattr(self, 'exception', None)
 
@@ -136,7 +134,8 @@ class AuditMiddleware:
                     data = {}
 
             # password, csrf token are intentionally removed from list
-            keys = getattr(settings, 'AUDIT_LOG_DJ_REQUEST_DATA_EXCLUSION_KEYS', []) + ['password', 'csrfmiddlewaretoken']
+            keys = getattr(settings, 'AUDIT_LOG_DJ_REQUEST_DATA_EXCLUSION_KEYS', [
+            ]) + ['password', 'csrfmiddlewaretoken']
 
             for key in keys:
                 if key in data:
@@ -157,7 +156,7 @@ class AuditMiddleware:
                 'response_type': response_type,
                 'log_status': log_type,
                 'response_reason_phrase': response.reason_phrase,
-                'response_body': response_body if response_body else self.traceback if exception else None,
+                'response_body': self.traceback if exception else response_body,
                 'attempt_time': self.request_time,
                 'response_time': response_time
             }
